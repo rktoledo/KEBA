@@ -81,9 +81,9 @@ public class ChartMainController {
 		ActualLoad actualLoad= null;
 		try {
 			this.loadingData= this.db.getActualLoading();
-			actualLoadFilePath = loadingData.getLoadFilePath();
+			actualLoadFilePath = this.loadingData.getLoadFilePath();
 			loading= this.fileHandler.getLoadingData(actualLoadFilePath);
-			loading.setSessionID(loadingData.getSessionID());
+			loading.setSessionID(this.loadingData.getSessionID());
 		
 			//if (!loadingData.isComplete()){
 				rep100= this.udpServer.report100();
@@ -163,10 +163,10 @@ public class ChartMainController {
 	
 	
 	public void updateGUI(ActualLoad load){
-		if (load.isNewLoad()){
+		if (load.getLoadingData().getSessionID()!= this.loadingData.getSessionID()){
+			this.actualLoad= getData();
 			createNewGraphs(load);
 			this.chartView.addNewGraphs(sumEnergyGraph, sumVoltageGraph, sumCurrentGraph, energyGraph, sumVoltageGraph, currentGraph);
-			load.setNewLoad(false);
 		}
 		else {
 			updateGraphs(load);

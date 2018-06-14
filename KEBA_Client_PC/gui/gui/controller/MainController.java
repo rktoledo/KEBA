@@ -29,7 +29,6 @@ import remote.db.RemoteDatabase;
 
 import dbObjects.ActualLoad;
 import dbObjects.LoadingData;
-import dbObjects.LoadingObject;
 import dbObjects.Report100;
 
 public class MainController extends UnicastRemoteObject implements  RemoteObserver, Observer{
@@ -61,16 +60,13 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 	
 	//private ServerSettings serverSettings;
 
-	private LoadingData loadingData;
+	//private LoadingData loadingData;
 	private Boolean isConnected;
-	
-	private Boolean guiReady;
 
 	public MainController() throws RemoteException{
 		super();
 		//this.serverSettings= new ServerSettings();
 		//setRemoteObjects();
-		guiReady= false;
 
 		try {
 			this.serverConnectionController= new ServerConnectionController();
@@ -97,8 +93,8 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 	}
 	
 	private void updateAll(){
-		String actualLoadFilePath= null;
-		LoadingObject loading= null;
+		//String actualLoadFilePath= null;
+		//LoadingObject loading= null;
 		
 		if (this.isConnected){
 			System.out.println("MC: isconnected true");
@@ -108,9 +104,9 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 			
 			try {
 				this.udpServerStub.addRemoteObserver(this);
-				this.loadingData= this.db.getActualLoading();
-				actualLoadFilePath = loadingData.getLoadFilePath();
-				loading= fileHandler.getLoadingData(actualLoadFilePath);
+				//this.loadingData= this.db.getActualLoading();
+				//actualLoadFilePath = loadingData.getLoadFilePath();
+				//loading= fileHandler.getLoadingData(actualLoadFilePath);
 			} catch (RemoteException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -132,12 +128,13 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 			((MainView)this.mainFrame).setSettingsCard(settingsCard);
 			
 			addLoadings();
-			guiReady= true;
 		}
 		else{
 			removeObserver();
 			
 			this.udpServerStub= null;
+			this.db= null;
+			this.fileHandler= null;
 			
 			this.loadingTableController= null;
 			this.infoController= null;
@@ -149,17 +146,11 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 			this.loadingCard= null;
 			this.infoCard= null;
 			this.settingsCard= null;
-			guiReady= true;
 		}
 	}
 	
 	private void changeView(Boolean isConnected){
-		if (isConnected){
-			((MainView)this.mainFrame).changeLayouConnection();
-		}
-		else {
-			((MainView)this.mainFrame).changeLayouNoConnection();
-		}
+		((MainView)this.mainFrame).changeLayoutConnection(isConnected);
 	}
 	
 	public void addWindowListener(){
@@ -224,7 +215,7 @@ public class MainController extends UnicastRemoteObject implements  RemoteObserv
 			/*System.out.println("GUIREADY= " + guiReady);
 			System.out.println("chartMainController= " + chartMainController);
 			System.out.println("load= " + load);*/
-			if (guiReady && chartMainController!=null) chartMainController.updateGUI(load);
+			if (chartMainController!=null) chartMainController.updateGUI(load);
 		}
 		else if (updateMsg instanceof Report100){
 			System.out.println("MC Rem obs received Report100 ");

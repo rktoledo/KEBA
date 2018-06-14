@@ -73,22 +73,21 @@ public class MainView extends JFrame{
 		this.settingsCard= settingsCard;
 	}
 	
-	public void changeLayouNoConnection(){
-		this.cards.remove(actualCard);
-		this.cards.remove(loadingCard);
-		this.cards.remove(infoCard);
-		this.cards.remove(settingsCard);
-		this.cards.add(noConnectionPanel);
-		this.container.revalidate();
-		this.container.repaint();
-	}
-	
-	public void changeLayouConnection(){
-		this.cards.remove(noConnectionPanel);
-		this.cards.add(this.actualCard, currentPanel);
-		this.cards.add(this.loadingCard, loadingPanel);
-		this.cards.add(this.infoCard, infoPanel);
-		this.cards.add(this.settingsCard, settingPanel);
+	public void changeLayoutConnection(Boolean isConnected){
+		if (isConnected) {
+			this.cards.remove(noConnectionPanel);
+			this.cards.add(this.actualCard, currentPanel);
+			this.cards.add(this.loadingCard, loadingPanel);
+			this.cards.add(this.infoCard, infoPanel);
+			this.cards.add(this.settingsCard, settingPanel);
+		}
+		else {
+			this.cards.remove(actualCard);
+			this.cards.remove(loadingCard);
+			this.cards.remove(infoCard);
+			this.cards.remove(settingsCard);
+			this.cards.add(noConnectionPanel);
+		}
 		this.container.revalidate();
 		this.container.repaint();
 	}
