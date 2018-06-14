@@ -8,9 +8,9 @@
 	<classpathentry kind="src" path="gui"/>
 	<classpathentry kind="src" path="Analysis"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="/home/linaro/workspace/json-simple-1.1.1.jar"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/KEBA_Interface"/>
-	<classpathentry kind="lib" path="/home/linaro/Downloads/jfreechart.jar"/>
-	<classpathentry kind="lib" path="/home/linaro/Downloads/jcommon-1.0.8/jcommon-1.0.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/CHROKIR/Downloads/jfreechart.jar"/>
+	<classpathentry kind="lib" path="C:/Users/CHROKIR/Downloads/json-simple-1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/CHROKIR/Downloads/jcommon-1.0.8.tar.gz"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
