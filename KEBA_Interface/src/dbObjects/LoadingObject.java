@@ -140,7 +140,7 @@ public class LoadingObject implements Serializable{
 	}
 	
 	public int getChargingime(){
-		return timeSecondsArray[timeSecondsArray.length-1];
+		return (timeSecondsArray[timeSecondsArray.length-1]-timeSecondsArray[0]);
 	}
 
 	public int getPluginTimeSec() {
